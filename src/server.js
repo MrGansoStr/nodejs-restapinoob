@@ -1,7 +1,7 @@
 const updateroute = require('./routes/employees.rout.js')
+const connectDB =  require('./db.js')
 const express = require('express')
 const morgan = require('morgan')
-const connectDB =  require('./db.js')
 const cors = require('cors')
 const corsOptions = {
   origin: true,
