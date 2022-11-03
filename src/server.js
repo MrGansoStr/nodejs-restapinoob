@@ -29,6 +29,10 @@ let thing = [
   }
 ]
 
+app.get('/', (req, res) => {
+  res.json('Home page')
+})
+
 app.get('/cosas', async (req, res) => {
   const connection = await connectDB()
   const [ result ] = await connection.query('SELECT * FROM users')
