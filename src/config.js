@@ -1,5 +1,5 @@
 require('dotenv').config()
-const port = process.env.PORT || 3011
+const port = process.env.PORT || 3010
 const host = process.env.DB_HOST
 const userdtb = process.env.DB_USER
 const passdb = process.env.DB_PASSWORD
