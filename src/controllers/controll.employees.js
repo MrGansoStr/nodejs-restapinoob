@@ -5,21 +5,19 @@ const loggin = async (req, res) => {
     let usr = { ...req.body }
     const connection = await connectDB()
     let [ result ] = await connection.query(`SELECT username, password, email FROM users WHERE username = '${usr.username}' AND password = '${usr.password}'`)
-    if (result.length === 0) {
+    console.log(result)
+    if(result.length == 0) {
       res.status(404)
       res.send("Invalid User or Password")
+      res.setHeader()
       console.log("Invalid User or Password")
-    }
-    if (result[0].username == 'john') {
-      console.log(result[0])
-      console.log("Super user")
+      return res.json()
     }
     //res.send(result[0][0])
-    res.json(result[0])
+    return res.json(result[0])
   } catch (error) {
-    return res.status(500).json({
-      message: "Algo no anda bien"
-    })
+    console.log(error)
+    return res.status(400).json()
   }
 }
 

@@ -2,8 +2,15 @@ const updateroute = require('./routes/employees.rout.js')
 const express = require('express')
 const morgan = require('morgan')
 const connectDB =  require('./db.js')
+const cors = require('cors')
+const corsOptions = {
+  origin: true,
+  credentials: true
+}
+
 
 const loggin = require('./controllers/controll.employees.js')
+const oregs = require('./controllers/controller.oregister.js')
 const configs = require('./config')
 console.log(configs.port)
 
@@ -12,7 +19,8 @@ console.log(configs.port)
 const app = express()
 app.use(morgan('dev'))
 app.use(express.json())
-
+app.use(cors(corsOptions))
+app.options('*', cors(corsOptions))
 let thing = [
   {
     id: 1,
@@ -43,13 +51,7 @@ app.post('/register', async (req, body) => {
 app.post('/oauth', loggin)
 
 
-app.post('/oregister', async (req, res) => {
-  let usr = {...req.body}
-  const connection = await connectDB()
-  let result = await connection.query(`INSERT INTO users (username, password, email) 
-  VALUES ('${usr.username}', '${usr.password}', '${usr.email}')`)
-  res.send('Register succesfully')
-})
+app.post('/oregister', oregs)
 app.use(updateroute)
 
 app.use((req, res, next) => {
